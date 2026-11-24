@@ -236,18 +236,18 @@ The CLI exercise covers EC2, IAM, VPC, subnet, security group, key-pair and poli
 Use a named profile so the lab configuration is explicit:
 
 ```bash
-aws configure --profile devops-09
-aws sts get-caller-identity --profile devops-09
-aws configure list --profile devops-09
+aws configure --profile devops
+aws sts get-caller-identity --profile devops
+aws configure list --profile devops
 ```
 
 Then inspect resources:
 
 ```bash
-aws ec2 describe-vpcs --profile devops-09
-aws ec2 describe-subnets --profile devops-09
-aws ec2 describe-security-groups --profile devops-09
-aws ec2 describe-instances --profile devops-09
+aws ec2 describe-vpcs --profile devops
+aws ec2 describe-subnets --profile devops
+aws ec2 describe-security-groups --profile devops
+aws ec2 describe-instances --profile devops
 ```
 
 See the repository's [AWS CLI command reference](./cli-commands/aws-cli-commands.md) for the lecture commands. Replace every placeholder and review the selected account and Region before running commands that create, modify, or delete resources.
@@ -268,11 +268,11 @@ Amazon Elastic Container Registry is AWS's managed container image registry. The
 aws ecr create-repository \
   --repository-name demo-app \
   --region YOUR_REGION \
-  --profile devops-
+  --profile devops
 
 aws ecr get-login-password \
   --region YOUR_REGION \
-  --profile devops-0\
+  --profile devops\
   | docker login \
       --username AWS \
       --password-stdin YOUR_ACCOUNT_ID.dkr.ecr.YOUR_REGION.amazonaws.com
@@ -431,7 +431,7 @@ aws configure get region --profile devops
 ```bash
 aws ec2 describe-instances \
   --filters "Name=instance-state-name,Values=running" \
-  --profile devops-09
+  --profile devops
 ```
 
 ### Verify the remote deployment
@@ -475,14 +475,6 @@ Always inspect dependencies before deleting a VPC or IAM resource.
 
 ---
 
-## Next modules
-
-This module introduces two later topics:
-
-- **Infrastructure as Code:** Terraform replaces a sequence of imperative CLI operations with declarative infrastructure definitions.
-- **Container orchestration:** Amazon ECS provides AWS-native container orchestration, while Amazon EKS provides managed Kubernetes.
-
----
 
 ## References
 
