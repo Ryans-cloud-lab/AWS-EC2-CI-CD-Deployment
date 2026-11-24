@@ -179,7 +179,7 @@ Do not share private keys. Each person should use an individually managed key or
 
 The `feature/payment` branch demonstrates the first CD step. Jenkins uses the SSH Agent plugin and the `ec2-server-key` credential to execute `docker run` on a remote EC2 instance.
 
-[View the `feature/payment` Jenkinsfile](https://github.com/ronkaiser/devops-09-aws-services/blob/feature/payment/java-maven-app/Jenkinsfile)
+[View the `feature/payment` Jenkinsfile](https://github.com/Ryans-cloud-lab/AWS-Service/feature/payment/java-maven-app/Jenkinsfile)
 
 The branch maps EC2 host port `3000` to container port `3080`. Replace the checked-in lab IP address, image reference, and ports with values for your environment.
 
@@ -196,9 +196,9 @@ The `jenkins-jobs` branch evolves the deployment:
 Branch files:
 
 - [`Jenkinsfile`](https://github.com/Ryans-cloud-lab/AWS-Service/jenkins-jobs/java-maven-app/Jenkinsfile)
-- [`docker-compose.yaml`](https://github.com/ronkaiser/AWS-Service/jenkins-jobs/java-maven-app/docker-compose.yaml)
-- [`server-cmds.sh`](https://github.com/ronkaiser/AWS-Service/jenkins-jobs/java-maven-app/server-cmds.sh)
-- [`Dockerfile`](https://github.com/ronkaiser/AWS-Service/jenkins-jobs/java-maven-app/Dockerfile)
+- [`docker-compose.yaml`](https://github.com/Ryans-cloud-lab/AWS-Service/jenkins-jobs/java-maven-app/docker-compose.yaml)
+- [`server-cmds.sh`](https://github.com/Ryans-cloud-lab/AWS-Service/jenkins-jobs/java-maven-app/server-cmds.sh)
+- [`Dockerfile`](https://github.com/Ryans-cloud-lab/AWS-Service/jenkins-jobs/java-maven-app/Dockerfile)
 
 ### 4. Complete CI/CD pipeline
 
