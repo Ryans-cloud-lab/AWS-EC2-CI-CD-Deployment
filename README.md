@@ -195,10 +195,10 @@ The `jenkins-jobs` branch evolves the deployment:
 
 Branch files:
 
-- [`Jenkinsfile`](https://github.com/Ryans-cloud-lab/AWS-Service/jenkins-jobs/java-maven-app/Jenkinsfile)
-- [`docker-compose.yaml`](https://github.com/Ryans-cloud-lab/AWS-Service/jenkins-jobs/java-maven-app/docker-compose.yaml)
-- [`server-cmds.sh`](https://github.com/Ryans-cloud-lab/AWS-Service/jenkins-jobs/java-maven-app/server-cmds.sh)
-- [`Dockerfile`](https://github.com/Ryans-cloud-lab/AWS-Service/jenkins-jobs/java-maven-app/Dockerfile)
+- [`Jenkinsfile`](https://github.com/Ryans-cloud-lab/AWS-Service/blob/jenkins-jobs/java-maven-app/Jenkinsfile)
+- [`docker-compose.yaml`](https://github.com/Ryans-cloud-lab/AWS-Service/blob/jenkins-jobs/java-maven-app/docker-compose.yaml)
+- [`server-cmds.sh`](https://github.com/Ryans-cloud-lab/AWS-Service/blob/jenkins-jobs/java-maven-app/server-cmds.sh)
+- [`Dockerfile`](https://github.com/Ryans-cloud-lab/AWS-Service/blob/jenkins-jobs/java-maven-app/Dockerfile)
 
 ### 4. Complete CI/CD pipeline
 
