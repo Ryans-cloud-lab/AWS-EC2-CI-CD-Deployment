@@ -49,10 +49,10 @@ AWS (deployment target)
 **Identity:** I sign in to the console with my own login, not the root user. An IAM user with an access key is used only for the AWS CLI.
 
 ### Azure (Jenkins server)
-**- VM:** Ubuntu 24.04 LTS, Standard_B2s (2 vCPU, 4 GiB) in Denmark East, created with the Azure CLI
-**- Network security group:** SSH (22) and Jenkins (8080) allowed only from my IP
-**- Public IP:** static, so the Jenkins URL stays the same when the VM is stopped and started
-**- Jenkins:** jenkins/jenkins:lts in Docker with a named volume for Jenkins home and the unless-stopped restart policy. It reaches the host's Docker daemon through the mounted Docker socket.
+- **VM:** Ubuntu 24.04 LTS, Standard_B2s (2 vCPU, 4 GiB) in Denmark East, created with the Azure CLI
+- **Network security group:** SSH (22) and Jenkins (8080) allowed only from my IP
+- **Public IP:** static, so the Jenkins URL stays the same when the VM is stopped and started
+- **Jenkins:** jenkins/jenkins:lts in Docker with a named volume for Jenkins home and the unless-stopped restart policy. It reaches the host's Docker daemon through the mounted Docker socket.
 
 Because port 8080 only accepts my IP, GitHub webhooks can't reach Jenkins, so builds are started with Build Now.
 
