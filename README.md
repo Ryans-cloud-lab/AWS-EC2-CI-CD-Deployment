@@ -16,7 +16,7 @@
 
 ## Description
 
-This repository contains the application code and learning artifacts for Module 9 of the DevOps Bootcamp. It demonstrates a complete CI/CD workflow in which Jenkins builds and publishes the application, connects to an Amazon EC2 instance, transfers deployment files and starts the new application version with Docker Compose.
+This repository contains the application code and learning artifacts for my personal project of deploying a simple application to Amazon EC2. It demonstrates a complete CI/CD workflow in which Jenkins builds and publishes the application, connects to an Amazon EC2 instance, transfers deployment files and starts the new application version with Docker Compose.
 
 My setup is multi-cloud: Jenkins runs in Docker on a Microsoft Azure VM and the application is deployed to AWS EC2. Images are published to Docker Hub. I built the infrastructure on both clouds and adapted the pipeline to my accounts.
 
