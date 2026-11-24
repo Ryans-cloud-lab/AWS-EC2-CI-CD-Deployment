@@ -15,9 +15,9 @@ pipeline {
         stage("build") {
             steps {
                 script {
-                    def dockerCmd = 'docker run -p 3000:3080 -d ronkaiser86/demo-app:1.0'
+                    def dockerCmd = 'docker run -p 3000:3080 -d Ryans-cloud-lab/demo-app:1.0'
                     sshagent(['ec2-server-key']) {
-                        sh "ssh -o StrictHostKeyChecking=no ec2-user@18.195.253.19 ${dockerCmd}"
+                        sh "ssh -o StrictHostKeyChecking=no ec2-user@9.205.89.240 ${dockerCmd}"
                     }
                 }
             }
