@@ -15,7 +15,10 @@ pipeline {
         stage("build") {
             steps {
                 script {
-                    echo "Building the application..."
+                    def dockerCmd = 'docker run -p 3000:3080 -d ronkaiser86/demo-app:1.0'
+                    sshagent(['ec2-server-key']) {
+                        sh "ssh -o StrictHostKeyChecking=no ec2-user@18.195.253.19 ${dockerCmd}"
+                    }
                 }
             }
         }
