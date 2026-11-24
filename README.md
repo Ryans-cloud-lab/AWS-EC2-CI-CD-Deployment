@@ -179,7 +179,7 @@ Do not share private keys. Each person should use an individually managed key or
 
 The `feature/payment` branch demonstrates the first CD step. Jenkins uses the SSH Agent plugin and the `ec2-server-key` credential to execute `docker run` on a remote EC2 instance.
 
-[View the `feature/payment` Jenkinsfile](https://github.com/Ryans-cloud-lab/AWS-Service/feature/payment/java-maven-app/Jenkinsfile)
+[View the `feature/payment` Jenkinsfile](https://github.com/Ryans-cloud-lab/AWS-Service/blob/feature/payment/java-maven-app/Jenkinsfile)
 
 The branch maps EC2 host port `3000` to container port `3080`. Replace the checked-in lab IP address, image reference, and ports with values for your environment.
 
