@@ -1,35 +1,33 @@
-# Module 9 - AWS Services
+# AWS Services
 
-**Demo projects:** Deploy a containerized application to Amazon EC2 manually and from Jenkins, complete the CI/CD pipeline with Docker Compose and dynamic versioning, manage AWS resources with the AWS CLI, and push a Docker image to Amazon ECR.
+**Projects:** Deployed a containerized application to Amazon EC2 manually and from Jenkins, complete the CI/CD pipeline with Docker Compose and dynamic versioning, manage AWS resources with the AWS CLI, and push a Docker image to Amazon ECR.
 
-**Technologies used:** AWS, Amazon EC2, Amazon ECR, IAM, VPC, AWS CLI, Jenkins, Docker, Docker Compose, Linux, Git, GitHub, Java, Maven
+**Technologies used:** AWS, Microsoft Azure, Amazon EC2, Amazon ECR, IAM, VPC, AWS CLI, Jenkins, Docker, Docker Compose, Linux, Git, GitHub, Java, Maven
 
 **Project description:**
 
 - Learn the AWS resource hierarchy: global services, Regions, and Availability Zones
 - Use IAM identities, groups, roles, and policies to control access
 - Understand VPCs, subnets, CIDR blocks, internet gateways, network ACLs, and security groups
-- Create an EC2 instance and deploy a Docker image from a private registry
-- Configure a Jenkins pipeline to deploy automatically to EC2 over SSH
-- Replace remote inline commands with Docker Compose and a deployment shell script
+- Launch an EC2 instance and deploy a Docker image from a private registry
+- Configure a Jenkins pipeline to deploy to EC2 automatically over SSH
+- Replace inline remote commands with Docker Compose and a deployment shell script
 - Build, tag, authenticate, and push a Docker image to Amazon ECR
 - Install and configure the AWS CLI and use it to inspect and create resources
-
-*Module 9: AWS Services*
 
 ---
 
 ## Description
 
-This repository contains the application code and learning artifacts for Module 9 of the DevOps Bootcamp. It demonstrates a complete CI/CD workflow in which Jenkins builds and publishes the application, connects to an Amazon EC2 instance, transfers deployment files, and starts the new application version with Docker Compose.
+This repository holds the application and pipeline code for my AWS Services project. It demonstrates a complete CI/CD workflow in which Jenkins builds and publishes the application, connects to an Amazon EC2 instance, transfers deployment files and starts the new application version with Docker Compose. My setup is multi-cloud: Jenkins runs in Docker on a Microsoft Azure VM and the application is deployed to AWS EC2. Images are published to Docker Hub. The sample applications and starting pipeline come from a simple application from an online resource. I built the infrastructure on both clouds, adapted the pipeline to my accounts and documented the problems I solved along the way.
 
-The course progression is preserved in separate branches:
+The progression of my project is preserved in separate branches:
 
 - `main` contains the AWS CLI command reference and example applications.
 - `feature/payment` demonstrates the first automated EC2 deployment with `docker run`.
-- `jenkins-jobs` contains the complete CI/CD pipeline with Maven versioning, Docker build and push, remote Docker Compose deployment, and Git write-back.
+- `jenkins-jobs` contains the complete CI/CD pipeline with Maven versioning, Docker build and push, remote Docker Compose deployment and Git write-back.
 
-Amazon ECR is covered as a separate registry exercise. The end-to-end Jenkins example currently uses Docker Hub through the external Jenkins Shared Library.
+**Amazon ECR** is covered as a separate registry exercise. The end-to-end Jenkins example currently uses Docker Hub through the external Jenkins Shared Library.
 
 ## Source material
 
@@ -41,24 +39,22 @@ AWS's Free Tier structure has changed. For AWS accounts created on or after July
 
 ---
 
-## Learning objectives
+### Architecture
 
-After completing this module, you should be able to:
+AWS (deployment target)
+**Region:** `eu-north-1 (Stockholm)`, using the default VPC and a public subnet
+**EC2:** `t3.micro` running Amazon Linux, with Docker and Docker Compose installed
+**Access:** connected over SSH with an EC2 key pair. The private key never leaves my Mac and the Jenkins credentials store.
+**Security group:** SSH (22) allowed only from my IP and the Jenkins server's IP. Application ports are opened only while a demo needs them.
+**Identity:** I sign in to the console with my own login, not the root user. An IAM user with an access key is used only for the AWS CLI.
 
-1. Explain the relationship among a Region, Availability Zone, VPC, subnet, and EC2 instance.
-2. Distinguish IAM users, groups, roles, and policies.
-3. Configure network access at the subnet and instance levels.
-4. Connect securely to a Linux EC2 instance with an SSH key pair.
-5. Run a containerized application manually on EC2.
-6. Add an automated EC2 deployment stage to a Jenkins pipeline.
-7. Use Docker Compose to deploy a version selected by the pipeline.
-8. Configure and use the AWS CLI without committing credentials.
-9. Create an ECR repository and push a tagged image to it.
-10. Clean up cloud resources to avoid unnecessary charges.
+### Azure (Jenkins server)
+**VM:** Ubuntu 24.04 LTS, Standard_B2s (2 vCPU, 4 GiB) in Denmark East, created with the Azure CLI
+**Network security group:** SSH (22) and Jenkins (8080) allowed only from my IP
+**Public IP:** static, so the Jenkins URL stays the same when the VM is stopped and started
+**Jenkins:** jenkins/jenkins:lts in Docker with a named volume for Jenkins home and the unless-stopped restart policy. It reaches the host's Docker daemon through the mounted Docker socket.
 
----
-
-## AWS foundations
+Because port 8080 only accepts my IP, GitHub webhooks can't reach Jenkins, so builds are started with Build Now.
 
 ### Resource scope
 
@@ -140,7 +136,7 @@ For this lab, restrict SSH port `22` to your workstation or Jenkins server publi
 
 ---
 
-## Demo projects
+## Demo project
 
 ### 1. Deploy a web application to EC2 manually
 
@@ -199,10 +195,10 @@ The `jenkins-jobs` branch evolves the deployment:
 
 Branch files:
 
-- [`Jenkinsfile`](https://github.com/ronkaiser/devops-09-aws-services/blob/jenkins-jobs/java-maven-app/Jenkinsfile)
-- [`docker-compose.yaml`](https://github.com/ronkaiser/devops-09-aws-services/blob/jenkins-jobs/java-maven-app/docker-compose.yaml)
-- [`server-cmds.sh`](https://github.com/ronkaiser/devops-09-aws-services/blob/jenkins-jobs/java-maven-app/server-cmds.sh)
-- [`Dockerfile`](https://github.com/ronkaiser/devops-09-aws-services/blob/jenkins-jobs/java-maven-app/Dockerfile)
+- [`Jenkinsfile`](https://github.com/Ryans-cloud-lab/AWS-Service/blob/jenkins-jobs/java-maven-app/Jenkinsfile)
+- [`docker-compose.yaml`](https://github.com/ronkaiser/AWS-Service/blob/jenkins-jobs/java-maven-app/docker-compose.yaml)
+- [`server-cmds.sh`](https://github.com/ronkaiser/AWS-Service/blob/jenkins-jobs/java-maven-app/server-cmds.sh)
+- [`Dockerfile`](https://github.com/ronkaiser/AWS-Service/blob/jenkins-jobs/java-maven-app/Dockerfile)
 
 ### 4. Complete CI/CD pipeline
 
@@ -231,11 +227,11 @@ flowchart LR
     Jenkins -->|Commit version bump| GitHub
 ```
 
-This pipeline combines application build, container publishing, and automated deployment to AWS.
+This pipeline combines application build, container publishing and automated deployment to AWS.
 
 ### 5. Interact with AWS through the CLI
 
-The CLI exercise covers EC2, IAM, VPC, subnet, security group, key-pair, and policy operations.
+The CLI exercise covers EC2, IAM, VPC, subnet, security group, key-pair and policy operations.
 
 Use a named profile so the lab configuration is explicit:
 
@@ -272,11 +268,11 @@ Amazon Elastic Container Registry is AWS's managed container image registry. The
 aws ecr create-repository \
   --repository-name demo-app \
   --region YOUR_REGION \
-  --profile devops-09
+  --profile devops-
 
 aws ecr get-login-password \
   --region YOUR_REGION \
-  --profile devops-09 \
+  --profile devops-0\
   | docker login \
       --username AWS \
       --password-stdin YOUR_ACCOUNT_ID.dkr.ecr.YOUR_REGION.amazonaws.com
@@ -399,7 +395,7 @@ devops-09-aws-services/
 └── react-nodejs-example/          # React frontend and Node.js API
 ```
 
-The `jenkins-jobs` branch additionally contains `java-maven-app/Dockerfile`, `docker-compose.yaml`, and `server-cmds.sh`.
+The `jenkins-jobs` branch additionally contains `java-maven-app/Dockerfile`, `docker-compose.yaml` and `server-cmds.sh`.
 
 ---
 
@@ -426,8 +422,8 @@ These changes preserve the learning workflow while avoiding stale endpoints, exp
 ### Verify AWS identity and Region
 
 ```bash
-aws sts get-caller-identity --profile devops-09
-aws configure get region --profile devops-09
+aws sts get-caller-identity --profile devops
+aws configure get region --profile devops
 ```
 
 ### Verify EC2
