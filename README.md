@@ -1,4 +1,4 @@
-# AWS Services
+# AWS ECS CI/CD Deployment
 
 **Projects:** Deployed a containerized application to Amazon EC2 manually and from Jenkins, complete the CI/CD pipeline with Docker Compose and dynamic versioning, manage AWS resources with the AWS CLI, and push a Docker image to Amazon ECR.
 
